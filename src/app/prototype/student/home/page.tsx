@@ -1,38 +1,48 @@
-const studentHighlights = [
-  { title: '今日待学', detail: '2 个 Lesson 待继续，1 个补救复习待完成。', accent: '#0F766E' },
-  { title: '课程入口', detail: '从我的 Course 或 KnowledgeGraph 进入学习流。', accent: '#4F46E5' },
-  { title: '权限边界', detail: '学生只看到已发布内容，不看到教师草稿与审核状态。', accent: '#9A3412' },
-];
+import Link from 'next/link';
+import { CourseHero, MetricCards, Surface } from '../../components/PrototypeBlocks';
+import { remediationItems, studentCourseCards } from '../../components/prototype-data';
 
 export default function StudentHomePrototypePage() {
   return (
     <div className="space-y-6">
-      <section className="rounded-[28px] bg-white p-6 shadow-sm">
-        <p className="text-sm font-semibold uppercase tracking-[0.18em] text-teal-600">Student Home</p>
-        <h2 className="mt-3 text-3xl font-semibold tracking-tight text-slate-900">学生工作台已经从教师流中独立出来。</h2>
-        <p className="mt-4 max-w-3xl text-sm leading-7 text-slate-600">
-          在旧的原型顺序里，学生入口出现在很靠后的位置。现在它变成独立的 workspace home，为后续 Course 到 KnowledgeGraph、Lesson、Review、
-          Progress 的学习闭环提供稳定路由起点。
-        </p>
-      </section>
+      <CourseHero
+        roleLabel="Student Home"
+        accent="#0F766E"
+        actionLabel="进入我的课程"
+        actionHref="/prototype/student/course"
+        detail="学生工作台不再附属于教师顺序。现在它从自己的 home 出发，直达 Course、KnowledgeGraph、Lesson、Review 与 Progress，同时严格隐藏 teacher 草稿和审核状态。"
+      />
 
-      <section className="grid gap-6 md:grid-cols-3">
-        {studentHighlights.map((item) => (
-          <article key={item.title} className="rounded-[28px] bg-white p-6 shadow-sm">
-            <div className="h-2 w-20 rounded-full" style={{ background: item.accent }} />
-            <h3 className="mt-5 text-lg font-semibold text-slate-900">{item.title}</h3>
-            <p className="mt-3 text-sm leading-6 text-slate-600">{item.detail}</p>
-          </article>
-        ))}
-      </section>
+      <MetricCards
+        accent="#0F766E"
+        items={[
+          { label: '继续学习', value: studentCourseCards[0].title, note: studentCourseCards[0].next },
+          { label: '待复习项目', value: `${remediationItems.length}`, note: '错误后的补救路径现在有了明确入口，不再隐含在 lesson 内。' },
+          { label: '权限边界', value: 'published only', note: '学生只消费已发布内容和个人进度。' },
+        ]}
+      />
 
-      <section className="rounded-[28px] border border-slate-200 bg-slate-50 p-6">
-        <p className="text-sm font-semibold text-slate-900">这个阶段先交付什么</p>
-        <p className="mt-3 text-sm leading-7 text-slate-600">
-          当前票先完成 student route grouping 和共享 shell，不在这里实现课程列表、知识图谱可视化、播放器和进度细节。那些内容会在 #22
-          作为独立 student slice 继续落地。
-        </p>
-      </section>
+      <Surface
+        eyebrow="Student Tasks"
+        accent="#0F766E"
+        title="学生首页强调继续学习与补救闭环"
+        description="首页优先展示下一步学习动作，而不是泛化分析。这样学生一进入 workspace 就能继续 Course 学习流，并清楚知道哪里可以回看、补救或查看进度。"
+      >
+        <div className="grid gap-4 md:grid-cols-3">
+          <Link href="/prototype/student/course" className="rounded-[24px] border border-slate-200 bg-slate-50 p-5 transition-colors hover:border-teal-200 hover:bg-teal-50/60">
+            <p className="text-lg font-semibold text-slate-950">我的课程</p>
+            <p className="mt-3 text-sm leading-6 text-slate-600">按 Course 进入学习，而不是从碎片页面跳进 Lesson。</p>
+          </Link>
+          <Link href="/prototype/student/review" className="rounded-[24px] border border-slate-200 bg-slate-50 p-5 transition-colors hover:border-teal-200 hover:bg-teal-50/60">
+            <p className="text-lg font-semibold text-slate-950">补救复习</p>
+            <p className="mt-3 text-sm leading-6 text-slate-600">把错题和弱 KnowledgePoint 汇总到一个明确的 review 入口。</p>
+          </Link>
+          <Link href="/prototype/student/progress" className="rounded-[24px] border border-slate-200 bg-slate-50 p-5 transition-colors hover:border-teal-200 hover:bg-teal-50/60">
+            <p className="text-lg font-semibold text-slate-950">学习进度</p>
+            <p className="mt-3 text-sm leading-6 text-slate-600">聚合 mastery、待办与下一个推荐 Lesson，形成学习闭环。</p>
+          </Link>
+        </div>
+      </Surface>
     </div>
   );
 }

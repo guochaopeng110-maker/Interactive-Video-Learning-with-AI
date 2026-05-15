@@ -6,7 +6,7 @@ export default function StudentPrototypeLayout({ children }: { children: ReactNo
     <PrototypeAppShell
       role="student"
       title="学生工作台"
-      subtitle="这里先建立 student workspace 的共享壳层与角色上下文，后续的课程、知识图谱、Lesson 学习与复习流程会继续挂载到这组路由下。"
+      subtitle="学生流沿用同一个 Course / KnowledgeGraph / Lesson 语义，但只暴露已发布内容、补救复习和个人进度，不泄露教师草稿与治理动作。"
     >
       {children}
     </PrototypeAppShell>

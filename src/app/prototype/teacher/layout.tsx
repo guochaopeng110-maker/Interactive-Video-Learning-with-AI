@@ -6,7 +6,7 @@ export default function TeacherPrototypeLayout({ children }: { children: ReactNo
     <PrototypeAppShell
       role="teacher"
       title="教师工作台"
-      subtitle="从共享登录进入教师作者空间，后续的 Course、Material、KnowledgeGraph 和 Lesson 流都会在这个壳层下继续展开。"
+      subtitle="在 #19 已建立的 shell 上继续延展教师作者流：从 Course 与 Material 评审，进入 KnowledgeGraph、Lesson 编排、学生式预览，再回到教学分析做迭代。"
     >
       {children}
     </PrototypeAppShell>

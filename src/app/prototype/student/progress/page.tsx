@@ -1,10 +1,29 @@
-export default function StudentProgressPlaceholderPage() {
+import { MetricCards, Surface } from '../../components/PrototypeBlocks';
+
+const progressMetrics = [
+  { label: 'Course Mastery', value: '74%', note: '聚合已发布 KnowledgePoint 的当前掌握度。' },
+  { label: '待完成补救', value: '2', note: '完成后会把结果重新回写到图谱与 Lesson 推荐。' },
+  { label: '下一个建议', value: '无菌技术 Lesson', note: '根据最近 LearningEvent 自动推荐。' },
+];
+
+export default function StudentProgressPage() {
   return (
-    <section className="rounded-[28px] border border-dashed border-slate-300 bg-white p-6 shadow-sm">
-      <p className="text-sm font-semibold text-slate-900">Student progress placeholder</p>
-      <p className="mt-3 text-sm leading-7 text-slate-600">
-        这个页面先证明 student workspace 的导航入口已经可复用。真正的掌握度、复习建议与进度聚合会在后续 student slice 中实现。
-      </p>
-    </section>
+    <div className="space-y-6">
+      <Surface
+        eyebrow="Student Progress"
+        accent="#0F766E"
+        title="Progress 关注 mastery 和下一步，而不是平台 vanity metrics"
+        description="这里承接 Course、KnowledgeGraph、Lesson 和 Review 的结果，帮助学生知道自己已经掌握了什么、还差什么，以及现在应该做什么。"
+      >
+        <MetricCards accent="#0F766E" items={progressMetrics} />
+      </Surface>
+
+      <Surface
+        eyebrow="Continuity"
+        accent="#0F766E"
+        title="Progress 页面把学生送回正确的学习入口"
+        description="当 Progress 发现低掌握度节点时，会把学生送回 Review 或某个 Lesson，而不是暴露教师编排或管理员治理入口。"
+      />
+    </div>
   );
 }

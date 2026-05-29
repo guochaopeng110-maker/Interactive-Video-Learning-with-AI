@@ -6,7 +6,7 @@ export default function AdminPrototypeLayout({ children }: { children: ReactNode
     <PrototypeAppShell
       role="admin"
       title="管理工作台"
-      subtitle="这里先建立 admin workspace 的共享壳层，明确它与教师创作流、学生学习流分离，后续 catalog、users、governance 和 analytics 会接在这里。"
+      subtitle="管理流延续 role-based shell，但职责聚焦 Major / Course 目录、用户权限、治理审计与组织分析，不推翻也不侵入教师 Lesson 编排。"
     >
       {children}
     </PrototypeAppShell>

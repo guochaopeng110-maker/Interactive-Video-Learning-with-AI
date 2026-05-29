@@ -1,62 +1,69 @@
-const teacherCourses = [
-  { name: '基础护理学', stage: '待继续：教材审核', progress: '3 份 Material 待确认', accent: '#4F46E5' },
-  { name: '内科护理学', stage: '待继续：KnowledgeGraph', progress: '8 个 KnowledgePoint 已确认', accent: '#0F766E' },
-  { name: '外科护理学', stage: '待继续：Lesson 编排', progress: '2 个 Lesson 草稿', accent: '#9A3412' },
-];
+import Link from 'next/link';
+import { CourseHero, MetricCards, Surface } from '../../components/PrototypeBlocks';
+import { courseSummary, teacherAnalytics } from '../../components/prototype-data';
 
 const teacherTasks = [
-  '继续一门 Course 的 Material 审核',
-  '从已确认 KnowledgePoint 进入 KnowledgeGraph',
-  '回到 Lesson 预览前的 authoring flow',
+  {
+    title: '继续教材审核',
+    detail: '回到低置信度 Material 建议，先确认可进入图谱的 KnowledgePoint。',
+    href: '/prototype/teacher/materials',
+  },
+  {
+    title: '进入 Lesson 编排',
+    detail: '从已确认的 Course 结构中选点，开始搭建 LessonNode 与分支流。',
+    href: '/prototype/teacher/lesson-builder',
+  },
+  {
+    title: '查看教学分析',
+    detail: '把已发布 Lesson 的掉点、弱点与补救效果回收为下轮迭代输入。',
+    href: '/prototype/teacher/analytics',
+  },
 ];
 
 export default function TeacherHomePrototypePage() {
   return (
     <div className="space-y-6">
-      <section className="grid gap-6 xl:grid-cols-[minmax(0,1.3fr)_340px]">
-        <article className="rounded-[28px] bg-white p-6 shadow-sm">
-          <p className="text-sm font-semibold uppercase tracking-[0.18em] text-indigo-400">Teacher Home</p>
-          <h2 className="mt-3 text-3xl font-semibold tracking-tight text-slate-900">教师原型入口现在属于 role-based workspace。</h2>
-          <p className="mt-4 max-w-3xl text-sm leading-7 text-slate-600">
-            这一步不再把教师控制台当作全局第二屏，而是把它挂到 `/prototype/teacher/home` 下，成为教师工作台的 home。后续 `#20` 和 `#21`
-            会继续把 Course、Material、KnowledgeGraph、Lesson 按这个结构接进来。
-          </p>
-        </article>
+      <CourseHero
+        roleLabel="Teacher Home"
+        accent="#4F46E5"
+        actionLabel="进入当前 Course"
+        actionHref="/prototype/teacher/course"
+        detail="教师工作台现在是独立 workspace，而不是旧原型顺序中的第二屏。当前切片继续沿着 #19 的 shell，向 Lesson authoring、preview 和 analytics 延展。"
+      />
 
-        <aside className="rounded-[28px] border border-slate-200 bg-slate-50 p-6">
-          <p className="text-xs font-semibold uppercase tracking-[0.18em] text-slate-400">当前票的交付重点</p>
-          <ul className="mt-4 space-y-3 text-sm leading-6 text-slate-600">
-            <li>统一登录后可进入教师工作台</li>
-            <li>教师路由纳入 role-based grouping</li>
-            <li>共享 shell 对后续页面可复用</li>
-          </ul>
-        </aside>
-      </section>
+      <MetricCards
+        accent="#4F46E5"
+        items={[
+          { label: '当前 Course', value: courseSummary.name, note: `${courseSummary.major} · ${courseSummary.term}` },
+          { label: '待发布 Lesson', value: '2', note: '都已完成 KnowledgeGraph 引用检查，等待预览与发布。' },
+          { label: '活跃学生', value: `${courseSummary.activeStudents}`, note: '发布后的 LearningEvent 会回流到 teacher analytics。' },
+        ]}
+      />
 
-      <section className="grid gap-6 lg:grid-cols-3">
-        {teacherCourses.map((course) => (
-          <article key={course.name} className="rounded-[28px] bg-white p-6 shadow-sm">
-            <div className="h-24 rounded-2xl" style={{ background: `linear-gradient(145deg, ${course.accent}22, ${course.accent}55)` }} />
-            <h3 className="mt-5 text-lg font-semibold text-slate-900">{course.name}</h3>
-            <p className="mt-2 text-sm font-medium" style={{ color: course.accent }}>
-              {course.stage}
-            </p>
-            <p className="mt-2 text-sm leading-6 text-slate-600">{course.progress}</p>
-          </article>
-        ))}
-      </section>
-
-      <section className="rounded-[28px] bg-white p-6 shadow-sm">
-        <p className="text-sm font-semibold text-slate-900">下一步会从这里展开的教师主链路</p>
-        <div className="mt-5 grid gap-4 md:grid-cols-3">
-          {teacherTasks.map((task, index) => (
-            <div key={task} className="rounded-2xl border border-slate-200 bg-slate-50 p-4">
-              <p className="text-xs font-semibold uppercase tracking-[0.18em] text-slate-400">Step {index + 1}</p>
-              <p className="mt-3 text-sm leading-6 text-slate-700">{task}</p>
-            </div>
+      <Surface
+        eyebrow="Teacher Attention"
+        accent="#4F46E5"
+        title="教师现在关心的是待处理任务，而不是泛化仪表盘"
+        description="首页优先承接作者流中的高价值动作，确保教师可以从 Course 进入 Materials、Lesson Builder 与 Analytics，而不是回退到旧的线性 prototype。"
+      >
+        <div className="grid gap-4 md:grid-cols-3">
+          {teacherTasks.map((task) => (
+            <Link key={task.title} href={task.href} className="rounded-[24px] border border-slate-200 bg-slate-50 p-5 transition-colors hover:border-indigo-200 hover:bg-indigo-50/50">
+              <p className="text-lg font-semibold text-slate-950">{task.title}</p>
+              <p className="mt-3 text-sm leading-6 text-slate-600">{task.detail}</p>
+            </Link>
           ))}
         </div>
-      </section>
+      </Surface>
+
+      <Surface
+        eyebrow="Iteration Signals"
+        accent="#4F46E5"
+        title="首页也提前暴露 Lesson 发布后的教学反馈"
+        description="这让 #21 的 handoff 更自然: Lesson 并不是发布即结束，而是通过 LearningEvent 和 KnowledgePoint 弱项信号继续反哺教师。"
+      >
+        <MetricCards accent="#4F46E5" items={teacherAnalytics} />
+      </Surface>
     </div>
   );
 }

@@ -1,10 +1,29 @@
-export default function AdminCatalogPlaceholderPage() {
+import { StageRail, Surface, TableBlock } from '../../components/PrototypeBlocks';
+import { adminCatalogRows, courseStages } from '../../components/prototype-data';
+
+export default function AdminCatalogPage() {
   return (
-    <section className="rounded-[28px] border border-dashed border-slate-300 bg-white p-6 shadow-sm">
-      <p className="text-sm font-semibold text-slate-900">Admin catalog placeholder</p>
-      <p className="mt-3 text-sm leading-7 text-slate-600">
-        这个占位页把 `Major` 和 `Course` catalog 的路由位置固定下来，方便 `#23` 在不改变壳层结构的情况下继续填充治理细节。
-      </p>
-    </section>
+    <div className="space-y-6">
+      <Surface
+        eyebrow="Admin Catalog"
+        accent="#9A3412"
+        title="Catalog 管理的是 Major / Course 结构，不是 Lesson 内容"
+        description="这里建立 #23 的第一段治理流。管理员在共享 Course 模型上工作，但动作集中在目录归属、可见性和开课状态，而不是进入教师作者界面。"
+      >
+        <TableBlock
+          columns={['Major', 'Course', 'Owner', 'Visibility', 'Governance']}
+          rows={adminCatalogRows.map((row) => [row.major, row.course, row.owner, row.visibility, row.governance])}
+        />
+      </Surface>
+
+      <Surface
+        eyebrow="Shared Model"
+        accent="#9A3412"
+        title="管理员看到的 Course stages 与其他角色一致，但关注点不同"
+        description="为了实现 #24 的跨角色一致性，这里沿用同一套 Course 阶段视觉语言，但强调的是可见性和治理状态，而不是编辑与学习动作。"
+      >
+        <StageRail items={courseStages} mode="admin" />
+      </Surface>
+    </div>
   );
 }

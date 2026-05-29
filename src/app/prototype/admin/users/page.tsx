@@ -1,10 +1,20 @@
-export default function AdminUsersPlaceholderPage() {
+import { Surface, TableBlock } from '../../components/PrototypeBlocks';
+import { adminUserRows } from '../../components/prototype-data';
+
+export default function AdminUsersPage() {
   return (
-    <section className="rounded-[28px] border border-dashed border-slate-300 bg-white p-6 shadow-sm">
-      <p className="text-sm font-semibold text-slate-900">Admin users placeholder</p>
-      <p className="mt-3 text-sm leading-7 text-slate-600">
-        这个占位页先建立 admin 的用户与角色入口，确保管理工作台的导航与教师、学生流彻底分离。
-      </p>
-    </section>
+    <div className="space-y-6">
+      <Surface
+        eyebrow="Admin Users"
+        accent="#9A3412"
+        title="角色与课程归属要在同一个治理入口里看清楚"
+        description="管理员需要同时看到用户角色、负责 Course 和权限边界，因为这些直接决定谁能进入 teacher authoring、student learning 或 admin governance 流。"
+      >
+        <TableBlock
+          columns={['用户', '角色', '作用范围', '权限边界']}
+          rows={adminUserRows.map((row) => [row.name, row.role, row.scope, row.boundary])}
+        />
+      </Surface>
+    </div>
   );
 }

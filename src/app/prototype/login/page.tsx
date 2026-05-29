@@ -19,10 +19,10 @@ export default function LoginPrototypePage() {
 
             <p className="mt-10 text-sm font-semibold uppercase tracking-[0.22em] text-white/75">Shared Entry Layer</p>
             <h1 className="mt-4 max-w-xl text-4xl font-semibold tracking-tight lg:text-5xl">
-              一个入口，进入三种角色工作台。
+              一个入口，进入 teacher / student / admin 三种工作台。
             </h1>
             <p className="mt-6 max-w-2xl text-base leading-7 text-white/78">
-              这次原型不再沿用旧的线性 9 屏顺序，而是从统一登录进入角色分流，再进入教师、学生、管理三条独立但共享 Course 语义的工作流。
+              当前原型不再沿用旧的 9 屏线性顺序，而是从统一登录进入角色分流，再进入共享 Course 语义下的 role-based workspace。
             </p>
           </div>
 
@@ -42,7 +42,7 @@ export default function LoginPrototypePage() {
               <p className="text-sm font-semibold uppercase tracking-[0.18em] text-indigo-400">Prototype Login</p>
               <h2 className="mt-3 text-3xl font-semibold text-slate-900">统一登录入口</h2>
               <p className="mt-3 text-sm leading-6 text-slate-600">
-                这里不再预设教师入口。登录后进入角色识别页，再跳转到对应工作台。
+                登录后先进入 `role-entry` 选择本次要进入的工作台，再延续各自的 role-based IA。共享入口只做身份建立，不提前混入 authoring 或 governance 细节。
               </p>
             </div>
 
@@ -75,7 +75,7 @@ export default function LoginPrototypePage() {
             <div className="mt-6 rounded-2xl bg-slate-50 p-4">
               <p className="text-xs font-semibold uppercase tracking-[0.18em] text-slate-400">Prototype Note</p>
               <p className="mt-2 text-sm leading-6 text-slate-600">
-                本票先打通 shared entry 和 role grouping，不在这里处理注册、找回密码、真实认证态。
+                这个入口保留 shared entry 的清晰边界，后续可直接切回 `role-entry` 切换角色，不需要退回旧式 teacher-first 原型顺序。
               </p>
             </div>
           </div>
